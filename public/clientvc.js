@@ -90,6 +90,9 @@ ws.of(roomId).on("start_call", async () => {
     addLocalTracks(rtcPeerConnection);
     rtcPeerConnection.ontrack = setRemoteStream;
     rtcPeerConnection.onicecandidate = sendIceCandidate;
+    // rtcPeerConnection.onnegotiationneeded = async () => {
+    //   console.log("neg needed");
+    // };
     await createOffer(rtcPeerConnection);
   }
 });
@@ -103,6 +106,9 @@ ws.of(roomId).on("webrtc_offer", async (event) => {
     addLocalTracks(rtcPeerConnection);
     rtcPeerConnection.ontrack = setRemoteStream;
     rtcPeerConnection.onicecandidate = sendIceCandidate;
+    // rtcPeerConnection.onnegotiationneeded = async () => {
+    //   console.log("neg needed");
+    // };
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
     await createAnswer(rtcPeerConnection);
   }
@@ -118,11 +124,11 @@ ws.of(roomId).on("webrtc_ice_candidate", (event) => {
   console.log("Socket event callback: webrtc_ice_candidate");
 
   // ICE candidate configuration.
-  var candidate = new RTCIceCandidate({
-    sdpMLineIndex: event.label,
-    candidate: event.candidate,
-  });
-  rtcPeerConnection.addIceCandidate(candidate);
+  // var candidate = new RTCIceCandidate({
+  //   sdpMLineIndex: event.label,
+  //   candidate: event.candidate,
+  // });
+  rtcPeerConnection.addIceCandidate(event.candidate);
 });
 
 // FUNCTIONS ==================================================================
@@ -182,8 +188,8 @@ function sendIceCandidate(event) {
   if (event.candidate) {
     ws.emit("webrtc_ice_candidate", {
       roomId,
-      label: event.candidate.sdpMLineIndex,
-      candidate: event.candidate.candidate,
+      // label: event.candidate.sdpMLineIndex,
+      candidate: event.candidate,
     });
   }
 }
