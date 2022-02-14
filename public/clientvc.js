@@ -90,11 +90,43 @@ ws.of(roomId).on("start_call", async () => {
     addLocalTracks(rtcPeerConnection);
     rtcPeerConnection.ontrack = setRemoteStream;
     rtcPeerConnection.onicecandidate = sendIceCandidate;
+    rtcPeerConnection.onnegotiationneeded = async () => {
+      console.log("neg needed");
+      try {
+        await rtcPeerConnection.setLocalDescription();
+        ws.emit("desc_send", { desc: rtcPeerConnection.localDescription, roomId });
+      } catch (error) {
+        console.error("desc send error: ", error);
+      }
+    };
+    // await createOffer(rtcPeerConnection);
+  }
+});
+
+ws.of(roomId).on("desc_send", async (event) => {
+  console.log("Socket event callback: desc_send", event);
+  // console.log(isRoomCreator, event);
+
+  if (!isRoomCreator) {
+    rtcPeerConnection = new RTCPeerConnection(iceServers);
+    addLocalTracks(rtcPeerConnection);
+    rtcPeerConnection.ontrack = setRemoteStream;
+    rtcPeerConnection.onicecandidate = sendIceCandidate;
     // rtcPeerConnection.onnegotiationneeded = async () => {
     //   console.log("neg needed");
     // };
-    await createOffer(rtcPeerConnection);
+    rtcPeerConnection.setRemoteDescription(event);
+    await rtcPeerConnection.setLocalDescription();
+    ws.emit("desc_get", { desc: rtcPeerConnection.localDescription, roomId });
+
+    // await createAnswer(rtcPeerConnection);
   }
+});
+
+ws.of(roomId).on("desc_get", (event) => {
+  console.log("Socket event callback: desc_get");
+  // console.log(isRoomCreator, event);
+  rtcPeerConnection.setRemoteDescription(event);
 });
 
 ws.of(roomId).on("webrtc_offer", async (event) => {
@@ -106,9 +138,9 @@ ws.of(roomId).on("webrtc_offer", async (event) => {
     addLocalTracks(rtcPeerConnection);
     rtcPeerConnection.ontrack = setRemoteStream;
     rtcPeerConnection.onicecandidate = sendIceCandidate;
-    // rtcPeerConnection.onnegotiationneeded = async () => {
-    //   console.log("neg needed");
-    // };
+    rtcPeerConnection.onnegotiationneeded = async () => {
+      console.log("neg needed");
+    };
     rtcPeerConnection.setRemoteDescription(new RTCSessionDescription(event));
     await createAnswer(rtcPeerConnection);
   }

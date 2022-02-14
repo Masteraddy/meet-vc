@@ -64,6 +64,16 @@ sockets.on("connection", (socket) => {
   });
 
   // These events are emitted to all the sockets connected to the same room except the sender.
+  socket.on("desc_send", (event) => {
+    console.log(`Broadcasting desc_send event to peers in room ${event.roomId}`);
+    // socket.of(event.roomId).emit("webrtc_offer", event.sdp);
+    socket.broadcast(event.roomId, "desc_send", event.desc);
+  });
+  socket.on("desc_get", (event) => {
+    console.log(`Broadcasting desc_get event to peers in room ${event.roomId}`);
+    // socket.of(event.roomId).emit("webrtc_offer", event.sdp);
+    socket.broadcast(event.roomId, "desc_get", event.desc);
+  });
   socket.on("start_call", (roomId) => {
     console.log(`Broadcasting start_call event to peers in room ${roomId}`);
     // socket.of(roomId).emit("start_call");
