@@ -20,11 +20,11 @@ const iceServers = {
     //   username: "password",
     //   credentials: "homeo",
     // },
-    // {
-    //   urls: "turn:numb.viagenie.ca",
-    //   username: "webrtc@live.com",
-    //   credentials: "muazkh",
-    // },
+    {
+      urls: "turn:numb.viagenie.ca",
+      username: "webrtc@live.com",
+      credentials: "muazkh",
+    },
     // {
     //   urls: "turn:turn.bistri.com:80",
     //   username: "homeo",
