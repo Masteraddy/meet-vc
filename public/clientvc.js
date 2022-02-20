@@ -30,7 +30,7 @@ const iceServers = {
     //   username: "homeo",
     //   credentials: "homeo",
     // },
-    { urls: "stun:stun.nodemedia.cn:3478" },
+    { urls: "stun:meet-jit-si-turnrelay.jitsi.net:443" },
     // { urls: "stun:stun.l.google.com:19302" },
     // { urls: "stun:stun1.l.google.com:19302" },
     // { urls: "stun:stun2.l.google.com:19302" },
