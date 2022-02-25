@@ -21,9 +21,9 @@ const iceServers = {
     //   credentials: "homeo",
     // },
     {
-      urls: "turn:numb.viagenie.ca",
-      username: "webrtc@live.com",
-      credentials: "muazkh",
+      urls: "turn:openrelay.metered.ca:443",
+      username: "openrelayproject",
+      credentials: "openrelayproject",
     },
     // {
     //   urls: "turn:turn.bistri.com:80",
