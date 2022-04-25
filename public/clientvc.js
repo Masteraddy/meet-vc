@@ -19,23 +19,47 @@ const iceServers = {
     //   urls: "turn:localhost:25436",
     //   username: "password",
     //   credentials: "homeo",
-    // },
-    {
-      urls: "turn:openrelay.metered.ca:443",
-      username: "openrelayproject",
-      credentials: "openrelayproject",
-    },
+//     // },
+//     {
+//       urls: "turn:openrelay.metered.ca:443",
+//       username: "openrelayproject",
+//       credentials: "openrelayproject",
+//     },
     // {
     //   urls: "turn:turn.bistri.com:80",
     //   username: "homeo",
     //   credentials: "homeo",
     // },
-    { urls: "stun:meet-jit-si-turnrelay.jitsi.net:443" },
+//     { urls: "stun:meet-jit-si-turnrelay.jitsi.net:443" },
     // { urls: "stun:stun.l.google.com:19302" },
     // { urls: "stun:stun1.l.google.com:19302" },
     // { urls: "stun:stun2.l.google.com:19302" },
     // { urls: "stun:stun3.l.google.com:19302" },
     // { urls: "stun:stun4.l.google.com:19302" },
+    {
+            urls: [
+                'stun:stun.l.google.com:19302',
+                'stun:stun1.l.google.com:19302',
+                'stun:stun2.l.google.com:19302',
+                'stun:stun3.l.google.com:19302',
+                'stun:stun4.l.google.com:19302',
+            ],
+        },
+        {
+            urls: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com',
+        },
+        {
+            urls: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com',
+        },
+        {
+            urls: 'turn:192.158.29.39:3478?transport=udp',
+            credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+            username: '28224511:1379330808',
+        },
   ],
 };
 
